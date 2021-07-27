@@ -11,7 +11,7 @@ class Board
   def place_stones
     # helper method to #initialize every non-store cup with four stones each
     (0...13).each do |j|
-      if j != 7
+      if j != 7 
         4.times do |i| 
           @cups[j] << :stone
         end
@@ -25,14 +25,12 @@ class Board
   end
 
   def make_move(start_pos, current_player_name)
-
     num_stones = @cups[start_pos].length
     @cups[start_pos].clear
     idx = start_pos
     while num_stones > 0
-      idx += 1
-      idx = 0 if idx > 13
-      if idx == 7 && current_player_name == @name1
+      idx = (idx + 1) % 14
+      if idx == 6 && current_player_name == @name1
         @cups[idx] << :stone 
       elsif idx == 13 && current_player_name == @name2
         @cups[idx] << :stone
@@ -61,12 +59,12 @@ class Board
   end
 
   def one_side_empty?
-    @cup[0..6].any? { |i| !i.empty? } || @cups[7..12].any? { |cup| !cup.empty? }
+    @cups[0..5].none? { |cup| !cup.empty? } || @cups[7..12].none? { |cup| !cup.empty? }  
   end
 
   def winner
-    name_1_count = @cups[6].count
-    name_2_count = @cups[13].count
+    name_1_count = @cups[6].length
+    name_2_count = @cups[13].length
 
     return :draw if name_1_count == name_2_count
     if name_1_count > name_2_count
