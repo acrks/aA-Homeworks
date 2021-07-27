@@ -30,9 +30,8 @@ class Board
     idx = start_pos
     while num_stones > 0
       idx = (idx + 1) % 14
-      if idx == 6 && current_player_name == @name1
-        @cups[idx] << :stone 
-      elsif idx == 13 && current_player_name == @name2
+      @cups[idx] << :stone if idx == 6 && current_player_name == @name1
+      if idx == 13 && current_player_name == @name2
         @cups[idx] << :stone
       else
         @cups[idx] << :stone
@@ -63,11 +62,11 @@ class Board
   end
 
   def winner
-    name_1_count = @cups[6].length
-    name_2_count = @cups[13].length
+    name_1_score = @cups[6].length
+    name_2_score = @cups[13].length
 
-    return :draw if name_1_count == name_2_count
-    if name_1_count > name_2_count
+    return :draw if name_1_score == name_2_score
+    if name_1_score > name_2_score
       return @name_1
     else
       return @name_2
