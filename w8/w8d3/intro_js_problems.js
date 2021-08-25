@@ -67,13 +67,16 @@ Elephant.paradeHelper = function (elephant) {
 // herd.forEach(el => {Elephant.paradeHelper(el)});
 
 function dinerBreakfast() {
-    let order = "I'd like cheesy scrambled eggs";
-    let polite = " please";
+    let order = "I'd like cheesy scrambled eggs ";
+    let polite = "please";
     console.log(order + polite)
 
     return function (other_orders) {
-        order = order.slice(0, order.length - 8)
-        order = order + " and " + other_orders + polite + ".";
+        if (order[order.length-7] === "p")
+        {
+            order = order.slice(0, order.length - 7)
+        }
+        order = order + "and " + other_orders + " " + polite + ".";
         console.log(order)
     }
 }
